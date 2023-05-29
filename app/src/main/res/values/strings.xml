@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">Restaurants App</string>
+    <string name="selection_icon">Selection icon</string>
+    <string name="restaurant_icon">Restaurant icon</string>
 </resources>

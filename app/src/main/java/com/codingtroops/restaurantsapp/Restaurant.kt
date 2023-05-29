@@ -3,7 +3,7 @@ package com.codingtroops.restaurantsapp
 data class Restaurant(val id: Int,
                       val title: String,
                       val description: String,
-                      var isFavorite: Boolean = false)
+                      val isFavorite: Boolean = false)
 
 val dummyRestaurants = listOf(
     Restaurant(0, "Alfredo's dishes", "At Alfredo's, we provide the best seafood dishes."),
