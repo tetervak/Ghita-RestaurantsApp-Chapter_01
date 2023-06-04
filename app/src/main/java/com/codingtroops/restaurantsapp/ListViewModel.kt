@@ -14,10 +14,9 @@ import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
 
-class MainViewModel : ViewModel() {
+class ListViewModel : ViewModel() {
 
     private var restInterface: RestaurantsApiService
-    private lateinit var restaurantsCall: Call<List<Restaurant>>
 
     private val _uiState: MutableState<List<Restaurant>> =
         mutableStateOf(emptyList())
@@ -36,14 +35,6 @@ class MainViewModel : ViewModel() {
         getRestaurants()
     }
 
-    fun toggleFavorite(id: Int) {
-        val restaurants = uiState.value.toMutableList()
-        val itemIndex = restaurants.indexOfFirst { it.id == id }
-        val item = restaurants[itemIndex]
-        restaurants[itemIndex] = item.copy(isFavorite = !item.isFavorite)
-        _uiState.value = restaurants.toList()
-    }
-
     private fun getRestaurants() {
         viewModelScope.launch(errorHandler) {
             _uiState.value = withContext(Dispatchers.IO){
@@ -52,9 +43,11 @@ class MainViewModel : ViewModel() {
         }
     }
 
-    override fun onCleared() {
-        super.onCleared()
-        restaurantsCall.cancel()
+    fun toggleFavorite(id: Int) {
+        val restaurants = uiState.value.toMutableList()
+        val itemIndex = restaurants.indexOfFirst { it.id == id }
+        val item = restaurants[itemIndex]
+        restaurants[itemIndex] = item.copy(isFavorite = !item.isFavorite)
+        _uiState.value = restaurants.toList()
     }
-
 }
