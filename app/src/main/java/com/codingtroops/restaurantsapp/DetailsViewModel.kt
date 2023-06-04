@@ -12,7 +12,7 @@ import kotlinx.coroutines.withContext
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
-class DetailsViewModel(private val stateHandle: SavedStateHandle): ViewModel() {
+class DetailsViewModel(stateHandle: SavedStateHandle): ViewModel() {
     private var restInterface: RestaurantsApiService
 
     private val _uiState: MutableState<Restaurant?> = mutableStateOf(null)
