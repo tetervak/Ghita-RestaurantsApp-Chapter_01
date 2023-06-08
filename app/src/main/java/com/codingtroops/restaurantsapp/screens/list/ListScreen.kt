@@ -14,24 +14,22 @@ import androidx.compose.material.icons.filled.Place
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.lifecycle.viewmodel.compose.viewModel
 import com.codingtroops.restaurantsapp.R
 import com.codingtroops.restaurantsapp.model.Restaurant
 import com.codingtroops.restaurantsapp.screens.common.RestaurantDetails
 import com.codingtroops.restaurantsapp.screens.common.RestaurantIcon
-import com.codingtroops.restaurantsapp.ui.theme.MainTheme
 
 @Composable
-fun ListScreen(onItemClick: (id: Int) -> Unit) {
-    val viewModel: ListViewModel = viewModel()
-    val restaurants: List<Restaurant> by viewModel.uiState
+fun ListScreen(
+    restaurants: List<Restaurant>,
+    onItemClick: (id: Int) -> Unit,
+    onFavoriteClick: (id: Int) -> Unit
+) {
     LazyColumn(
         contentPadding = PaddingValues(
             vertical = 8.dp,
@@ -41,8 +39,8 @@ fun ListScreen(onItemClick: (id: Int) -> Unit) {
         items(restaurants) { restaurant ->
             RestaurantItem(
                 item = restaurant,
-                onFavoriteClick = { id -> viewModel.toggleFavorite(id) },
-                onItemClick= { id -> onItemClick(id) }
+                onFavoriteClick = onFavoriteClick,
+                onItemClick = onItemClick
             )
         }
     }
@@ -100,10 +98,10 @@ private fun SelectionIcon(
             .clickable { onClick() })
 }
 
-@Preview(showBackground = true)
-@Composable
-fun DefaultPreview() {
-    MainTheme {
-        ListScreen(onItemClick = {})
-    }
-}
+//@Preview(showBackground = true)
+//@Composable
+//fun DefaultPreview() {
+//    MainTheme {
+//        ListScreen(onItemClick = {})
+//    }
+//}

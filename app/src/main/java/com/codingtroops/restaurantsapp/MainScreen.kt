@@ -1,6 +1,7 @@
 package com.codingtroops.restaurantsapp
 
 import androidx.compose.runtime.Composable
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
@@ -8,7 +9,9 @@ import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
 import androidx.navigation.navDeepLink
 import com.codingtroops.restaurantsapp.screens.details.DetailsScreen
+import com.codingtroops.restaurantsapp.screens.details.DetailsViewModel
 import com.codingtroops.restaurantsapp.screens.list.ListScreen
+import com.codingtroops.restaurantsapp.screens.list.ListViewModel
 import com.codingtroops.restaurantsapp.ui.theme.MainTheme
 
 @Composable
@@ -17,9 +20,12 @@ fun MainScreen() {
         val navController = rememberNavController()
         NavHost(navController, startDestination = "restaurants") {
             composable(route = "restaurants") {
-                ListScreen { id ->
-                    navController.navigate("restaurants/$id")
-                }
+                val viewModel: ListViewModel = hiltViewModel()
+                ListScreen(
+                    restaurants = viewModel.uiState.value,
+                    onItemClick = { id -> navController.navigate("restaurants/$id") },
+                    onFavoriteClick = { id -> viewModel.toggleFavorite(id) }
+                )
             }
             composable(
                 route = "restaurants/{restaurant_id}",
@@ -27,7 +33,8 @@ fun MainScreen() {
                 deepLinks = listOf(navDeepLink { uriPattern =
                     "www.restaurantsapp.details.com/{restaurant_id}" }),
             ) {
-                DetailsScreen()
+                val viewModel: DetailsViewModel = hiltViewModel()
+                DetailsScreen(restaurant = viewModel.uiState.value)
             }
         }
     }
