@@ -1,4 +1,4 @@
-package com.codingtroops.restaurantsapp.screens
+package com.codingtroops.restaurantsapp.screens.list
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
@@ -22,12 +22,11 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
-import com.codingtroops.restaurantsapp.ListViewModel
 import com.codingtroops.restaurantsapp.R
-import com.codingtroops.restaurantsapp.Restaurant
+import com.codingtroops.restaurantsapp.model.Restaurant
 import com.codingtroops.restaurantsapp.screens.common.RestaurantDetails
 import com.codingtroops.restaurantsapp.screens.common.RestaurantIcon
-import com.codingtroops.restaurantsapp.ui.theme.RestaurantsAppTheme
+import com.codingtroops.restaurantsapp.ui.theme.MainTheme
 
 @Composable
 fun ListScreen(onItemClick: (id: Int) -> Unit) {
@@ -104,7 +103,7 @@ private fun SelectionIcon(
 @Preview(showBackground = true)
 @Composable
 fun DefaultPreview() {
-    RestaurantsAppTheme {
+    MainTheme {
         ListScreen(onItemClick = {})
     }
 }

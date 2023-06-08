@@ -1,15 +1,16 @@
-package com.codingtroops.restaurantsapp
+package com.codingtroops.restaurantsapp.screens.list
 
 import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.State
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.codingtroops.restaurantsapp.data.RestaurantsApiService
+import com.codingtroops.restaurantsapp.model.Restaurant
 import kotlinx.coroutines.CoroutineExceptionHandler
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
-import retrofit2.Call
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 

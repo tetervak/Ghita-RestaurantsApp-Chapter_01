@@ -1,4 +1,4 @@
-package com.codingtroops.restaurantsapp
+package com.codingtroops.restaurantsapp.screens.details
 
 import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.State
@@ -6,6 +6,8 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.codingtroops.restaurantsapp.data.RestaurantsApiService
+import com.codingtroops.restaurantsapp.model.Restaurant
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext

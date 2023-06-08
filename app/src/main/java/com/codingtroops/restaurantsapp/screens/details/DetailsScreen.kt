@@ -1,4 +1,4 @@
-package com.codingtroops.restaurantsapp.screens
+package com.codingtroops.restaurantsapp.screens.details
 
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.icons.Icons
@@ -10,7 +10,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
-import com.codingtroops.restaurantsapp.DetailsViewModel
+import com.codingtroops.restaurantsapp.screens.details.DetailsViewModel
 import com.codingtroops.restaurantsapp.R
 import com.codingtroops.restaurantsapp.screens.common.RestaurantDetails
 import com.codingtroops.restaurantsapp.screens.common.RestaurantIcon

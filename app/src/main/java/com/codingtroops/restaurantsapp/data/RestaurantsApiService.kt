@@ -1,5 +1,6 @@
-package com.codingtroops.restaurantsapp
+package com.codingtroops.restaurantsapp.data
 
+import com.codingtroops.restaurantsapp.model.Restaurant
 import retrofit2.http.GET
 import retrofit2.http.Query
 

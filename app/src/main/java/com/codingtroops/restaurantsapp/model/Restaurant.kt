@@ -1,4 +1,4 @@
-package com.codingtroops.restaurantsapp
+package com.codingtroops.restaurantsapp.model
 
 import com.google.gson.annotations.SerializedName
 
