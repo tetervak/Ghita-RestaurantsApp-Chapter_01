@@ -14,10 +14,10 @@ class RestaurantRepositoryNet @Inject constructor(
     override suspend fun getAllRestaurants(): List<Restaurant> =
         withContext(Dispatchers.IO){restaurantsApiService.getAllRestaurants()}
 
-    override suspend fun getRestaurantById(id: Int): Restaurant {
-        return withContext(Dispatchers.IO) {
-            val response =  restaurantsApiService.getRestaurantById(id)
-            return@withContext response.values.first()
+    override suspend fun getRestaurantById(id: Int): Restaurant =
+        withContext(Dispatchers.IO) {
+            val map =  restaurantsApiService.getRestaurantById(id)
+            map.values.first()
         }
-    }
+
 }
