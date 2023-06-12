@@ -38,7 +38,7 @@ class RestaurantRepositoryImpl @Inject constructor(
             restaurantDao.toggleIsFavoriteById(id)
         }
 
-    override suspend fun refresh() =
+    override suspend fun refreshRestaurants() =
         withContext(Dispatchers.IO) {
 
             val restaurants: Deferred<List<Restaurant>> = async {

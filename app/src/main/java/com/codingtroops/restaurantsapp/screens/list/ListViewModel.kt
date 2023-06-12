@@ -23,7 +23,7 @@ class ListViewModel @Inject constructor(
 
     init {
         viewModelScope.launch(errorHandler) {
-            repository.refresh()
+            repository.refreshRestaurants()
         }
     }
 

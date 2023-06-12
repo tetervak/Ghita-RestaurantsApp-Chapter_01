@@ -25,7 +25,7 @@ object RetrofitModule {
 
     @Singleton
     @Provides
-    fun provideRestaurantApiService(retrofit: Retrofit): RestaurantApi {
+    fun provideRestaurantApi(retrofit: Retrofit): RestaurantApi {
         return retrofit.create(RestaurantApi::class.java)
     }
 }
