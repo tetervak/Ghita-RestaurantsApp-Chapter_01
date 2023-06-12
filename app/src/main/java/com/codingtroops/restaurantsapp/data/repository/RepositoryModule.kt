@@ -1,4 +1,4 @@
-package com.codingtroops.restaurantsapp.data
+package com.codingtroops.restaurantsapp.data.repository
 
 import dagger.Binds
 import dagger.Module
@@ -10,5 +10,7 @@ import dagger.hilt.components.SingletonComponent
 abstract class RepositoryModule {
 
     @Binds
-    abstract fun bindRestaurantRepository(repository: RestaurantRepositoryNet): RestaurantRepository
+    abstract fun bindRestaurantRepository(
+        repository: RestaurantRepositoryImpl
+    ): RestaurantRepository
 }

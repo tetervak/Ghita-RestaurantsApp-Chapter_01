@@ -1,4 +1,4 @@
-package com.codingtroops.restaurantsapp.data
+package com.codingtroops.restaurantsapp.data.network
 
 import dagger.Module
 import dagger.Provides
@@ -25,7 +25,7 @@ object RetrofitModule {
 
     @Singleton
     @Provides
-    fun provideRestaurantsApiService(retrofit: Retrofit): RestaurantsApiService {
-        return retrofit.create(RestaurantsApiService::class.java)
+    fun provideRestaurantApiService(retrofit: Retrofit): RestaurantApi {
+        return retrofit.create(RestaurantApi::class.java)
     }
 }

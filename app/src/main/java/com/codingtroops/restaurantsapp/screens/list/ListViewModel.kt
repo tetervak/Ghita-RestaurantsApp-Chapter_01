@@ -1,25 +1,21 @@
 package com.codingtroops.restaurantsapp.screens.list
 
-import androidx.compose.runtime.MutableState
-import androidx.compose.runtime.State
-import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.codingtroops.restaurantsapp.data.RestaurantRepository
+import com.codingtroops.restaurantsapp.data.repository.RestaurantRepository
 import com.codingtroops.restaurantsapp.model.Restaurant
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.CoroutineExceptionHandler
+import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
 class ListViewModel @Inject constructor(
-    repository: RestaurantRepository
+    private val repository: RestaurantRepository
 ) : ViewModel() {
 
-    private val _uiState: MutableState<List<Restaurant>> =
-        mutableStateOf(emptyList())
-    val uiState: State<List<Restaurant>> = _uiState
+    val restaurantListFlow: Flow<List<Restaurant>> = repository.getAllRestaurantFlow()
 
     private val errorHandler = CoroutineExceptionHandler { _, exception ->
         exception.printStackTrace()
@@ -27,15 +23,12 @@ class ListViewModel @Inject constructor(
 
     init {
         viewModelScope.launch(errorHandler) {
-            _uiState.value = repository.getAllRestaurants()
+            repository.refresh()
         }
     }
 
-    fun toggleFavorite(id: Int) {
-        val restaurants = uiState.value.toMutableList()
-        val itemIndex = restaurants.indexOfFirst { it.id == id }
-        val item = restaurants[itemIndex]
-        restaurants[itemIndex] = item.copy(isFavorite = !item.isFavorite)
-        _uiState.value = restaurants.toList()
-    }
+    fun toggleFavorite(id: Int) =
+        viewModelScope.launch(errorHandler) {
+            repository.toggleIsFavoriteById(id)
+        }
 }

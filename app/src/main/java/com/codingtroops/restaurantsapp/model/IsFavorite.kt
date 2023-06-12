@@ -1,10 +1,9 @@
-package com.codingtroops.restaurantsapp
+package com.codingtroops.restaurantsapp.model
 
 import androidx.room.ColumnInfo
-import androidx.room.Entity
 
-@Entity
-class PartialRestaurant(
+//@Entity
+class IsFavorite(
     @ColumnInfo(name = "r_id")
     val id: Int,
 

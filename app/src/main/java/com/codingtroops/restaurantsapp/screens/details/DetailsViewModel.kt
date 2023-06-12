@@ -6,7 +6,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.codingtroops.restaurantsapp.data.RestaurantRepository
+import com.codingtroops.restaurantsapp.data.repository.RestaurantRepository
 import com.codingtroops.restaurantsapp.model.Restaurant
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
@@ -18,13 +18,13 @@ class DetailsViewModel @Inject constructor(
     stateHandle: SavedStateHandle
 ): ViewModel() {
 
-    private val _uiState: MutableState<Restaurant?> = mutableStateOf(null)
-    val uiState: State<Restaurant?> = _uiState
+    private val _restaurantState: MutableState<Restaurant?> = mutableStateOf(null)
+    val restaurantState: State<Restaurant?> = _restaurantState
 
     init {
         val id: Int = stateHandle.get<Int>("restaurant_id")!!
         viewModelScope.launch {
-            _uiState.value = repository.getRestaurantById(id)
+            _restaurantState.value = repository.getRestaurantById(id)
         }
     }
 }
