@@ -7,8 +7,6 @@ import kotlinx.coroutines.flow.Flow
 
 @Dao
 interface RestaurantDao {
-    @Query("SELECT * FROM restaurant")
-    suspend fun getAllRestaurants(): List<Restaurant>
 
     @Query("SELECT * FROM restaurant")
     fun getAllRestaurantFlow(): Flow<List<Restaurant>>

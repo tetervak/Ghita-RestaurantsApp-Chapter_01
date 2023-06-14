@@ -5,8 +5,6 @@ import kotlinx.coroutines.flow.Flow
 
 interface RestaurantRepository {
 
-    suspend fun getAllRestaurants(): List<Restaurant>
-
     fun getAllRestaurantFlow(): Flow<List<Restaurant>>
 
     suspend fun getRestaurantById(id: Int): Restaurant

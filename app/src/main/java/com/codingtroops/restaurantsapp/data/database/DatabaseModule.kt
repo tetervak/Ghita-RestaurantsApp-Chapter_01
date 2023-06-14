@@ -1,6 +1,7 @@
 package com.codingtroops.restaurantsapp.data.database
 
 import android.content.Context
+import androidx.room.Room
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -15,8 +16,13 @@ object DatabaseModule {
     @Singleton
     @Provides
     fun provideRestaurantDatabase(
-        @ApplicationContext context: Context
-    ): RestaurantDatabase = RestaurantDatabase.getInstance(context)
+        @ApplicationContext applicationContext: Context
+    ): RestaurantDatabase = Room.databaseBuilder(
+        applicationContext,
+        RestaurantDatabase::class.java,
+        "restaurants_database")
+        .fallbackToDestructiveMigration()
+        .build()
 
     @Singleton
     @Provides

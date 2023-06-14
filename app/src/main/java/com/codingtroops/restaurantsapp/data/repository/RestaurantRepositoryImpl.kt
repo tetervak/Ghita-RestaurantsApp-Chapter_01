@@ -18,19 +18,11 @@ class RestaurantRepositoryImpl @Inject constructor(
     private val restaurantDao: RestaurantDao
 ): RestaurantRepository {
 
-    override suspend fun getAllRestaurants(): List<Restaurant> =
-        withContext(Dispatchers.IO){
-            //restaurantApi.getAllRestaurants()
-            restaurantDao.getAllRestaurants()
-        }
-
     override fun getAllRestaurantFlow(): Flow<List<Restaurant>> =
         restaurantDao.getAllRestaurantFlow()
 
     override suspend fun getRestaurantById(id: Int): Restaurant =
         withContext(Dispatchers.IO) {
-            //val map =  restaurantApi.getRestaurantById(id)
-            //map.values.first()
             restaurantDao.getRestaurantById(id)
         }
 
