@@ -20,7 +20,8 @@ class RestaurantRepositoryImpl @Inject constructor(
 
     override suspend fun getAllRestaurants(): List<Restaurant> =
         withContext(Dispatchers.IO){
-            restaurantApi.getAllRestaurants()
+            //restaurantApi.getAllRestaurants()
+            restaurantDao.getAllRestaurants()
         }
 
     override fun getAllRestaurantFlow(): Flow<List<Restaurant>> =
