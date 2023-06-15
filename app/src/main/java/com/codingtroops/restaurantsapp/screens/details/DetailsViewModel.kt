@@ -1,14 +1,14 @@
 package com.codingtroops.restaurantsapp.screens.details
 
-import androidx.compose.runtime.MutableState
-import androidx.compose.runtime.State
-import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.codingtroops.restaurantsapp.data.repository.RestaurantRepository
 import com.codingtroops.restaurantsapp.model.Restaurant
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -18,13 +18,22 @@ class DetailsViewModel @Inject constructor(
     stateHandle: SavedStateHandle
 ): ViewModel() {
 
-    private val _restaurantState: MutableState<Restaurant?> = mutableStateOf(null)
-    val restaurantState: State<Restaurant?> = _restaurantState
+    private val _detailsUiState: MutableStateFlow<DetailsUiState> =
+        MutableStateFlow(DetailsUiState.Loading)
+    val detailsUiState: StateFlow<DetailsUiState> = _detailsUiState
 
     init {
         val id: Int = stateHandle.get<Int>("restaurant_id")!!
         viewModelScope.launch {
-            _restaurantState.value = repository.getRestaurantById(id)
+            val restaurant: Restaurant = repository.getRestaurantById(id)
+            _detailsUiState.update {
+                DetailsUiState.Success(restaurant = restaurant)
+            }
         }
     }
+}
+
+sealed interface DetailsUiState {
+    object Loading: DetailsUiState
+    data class Success(val restaurant: Restaurant): DetailsUiState
 }

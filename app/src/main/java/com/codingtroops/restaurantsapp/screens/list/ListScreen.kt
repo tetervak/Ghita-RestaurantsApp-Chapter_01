@@ -14,6 +14,7 @@ import androidx.compose.material.icons.filled.Place
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
@@ -26,22 +27,25 @@ import com.codingtroops.restaurantsapp.screens.common.RestaurantIcon
 
 @Composable
 fun ListScreen(
-    restaurants: List<Restaurant>,
-    onItemClick: (id: Int) -> Unit,
-    onFavoriteClick: (id: Int) -> Unit
+    viewModel: ListViewModel,
+    onItemClick: (id: Int) -> Unit
 ) {
-    LazyColumn(
-        contentPadding = PaddingValues(
-            vertical = 8.dp,
-            horizontal = 8.dp
-        )
-    ) {
-        items(restaurants) { restaurant ->
-            RestaurantItem(
-                item = restaurant,
-                onFavoriteClick = onFavoriteClick,
-                onItemClick = onItemClick
+    val listUiState: ListUiState = viewModel.listUiState.collectAsState().value
+    if(listUiState is ListUiState.Success){
+        val restaurants: List<Restaurant> = listUiState.restaurants
+        LazyColumn(
+            contentPadding = PaddingValues(
+                vertical = 8.dp,
+                horizontal = 8.dp
             )
+        ) {
+            items(restaurants) { restaurant ->
+                RestaurantItem(
+                    item = restaurant,
+                    onFavoriteClick = { viewModel.toggleFavorite(restaurant.id) },
+                    onItemClick = onItemClick
+                )
+            }
         }
     }
 }
