@@ -8,6 +8,7 @@ import kotlinx.coroutines.Deferred
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.async
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.flowOn
 import kotlinx.coroutines.withContext
 import javax.inject.Inject
 import javax.inject.Singleton
@@ -19,7 +20,7 @@ class RestaurantRepositoryImpl @Inject constructor(
 ): RestaurantRepository {
 
     override fun getAllRestaurantFlow(): Flow<List<Restaurant>> =
-        restaurantDao.getAllRestaurantFlow()
+        restaurantDao.getAllRestaurantFlow().flowOn(Dispatchers.IO)
 
     override suspend fun getRestaurantById(id: Int): Restaurant =
         withContext(Dispatchers.IO) {

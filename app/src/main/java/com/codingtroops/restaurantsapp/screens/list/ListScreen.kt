@@ -14,6 +14,7 @@ import androidx.compose.material.icons.filled.Place
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.State
 import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -30,7 +31,8 @@ fun ListScreen(
     viewModel: ListViewModel,
     onItemClick: (id: Int) -> Unit
 ) {
-    val listUiState: ListUiState = viewModel.listUiState.collectAsState().value
+    val state: State<ListUiState> = viewModel.listUiState.collectAsState()
+    val listUiState: ListUiState = state.value
     if(listUiState is ListUiState.Success){
         val restaurants: List<Restaurant> = listUiState.restaurants
         LazyColumn(

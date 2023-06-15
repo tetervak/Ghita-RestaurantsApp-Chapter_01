@@ -5,6 +5,7 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Place
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.State
 import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -19,7 +20,8 @@ import com.codingtroops.restaurantsapp.screens.common.RestaurantIcon
 fun DetailsScreen(
     viewModel: DetailsViewModel
 ) {
-    val detailsUiState: DetailsUiState = viewModel.detailsUiState.collectAsState().value
+    val state: State<DetailsUiState> = viewModel.detailsUiState.collectAsState()
+    val detailsUiState: DetailsUiState = state.value
     if (detailsUiState is DetailsUiState.Success) {
         val restaurant: Restaurant = detailsUiState.restaurant
         Column(
