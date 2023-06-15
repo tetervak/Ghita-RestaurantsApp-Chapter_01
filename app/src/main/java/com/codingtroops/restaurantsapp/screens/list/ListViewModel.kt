@@ -32,12 +32,6 @@ class ListViewModel @Inject constructor(
         exception.printStackTrace()
     }
 
-    init {
-        viewModelScope.launch(errorHandler) {
-            repository.refreshRestaurants()
-        }
-    }
-
     fun toggleFavorite(id: Int) =
         viewModelScope.launch(errorHandler) {
             repository.toggleIsFavoriteById(id)
