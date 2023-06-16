@@ -2,7 +2,7 @@ package com.codingtroops.restaurantsapp.data.database
 
 import androidx.room.Database
 import androidx.room.RoomDatabase
-import com.codingtroops.restaurantsapp.model.Restaurant
+import com.codingtroops.restaurantsapp.domain.Restaurant
 
 @Database(
     entities = [Restaurant::class],

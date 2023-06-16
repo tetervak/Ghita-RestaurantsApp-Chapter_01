@@ -5,7 +5,7 @@ import com.codingtroops.restaurantsapp.data.network.RestaurantApi
 import com.codingtroops.restaurantsapp.data.database.IsFavorite
 import com.codingtroops.restaurantsapp.data.database.LocalRestaurant
 import com.codingtroops.restaurantsapp.data.network.RemoteRestaurant
-import com.codingtroops.restaurantsapp.model.Restaurant
+import com.codingtroops.restaurantsapp.domain.Restaurant
 import kotlinx.coroutines.Deferred
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.async

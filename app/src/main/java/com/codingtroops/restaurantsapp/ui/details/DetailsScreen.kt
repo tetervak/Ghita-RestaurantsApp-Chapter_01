@@ -12,7 +12,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import com.codingtroops.restaurantsapp.R
-import com.codingtroops.restaurantsapp.model.Restaurant
+import com.codingtroops.restaurantsapp.domain.Restaurant
 import com.codingtroops.restaurantsapp.ui.common.RestaurantDetails
 import com.codingtroops.restaurantsapp.ui.common.RestaurantIcon
 

@@ -1,4 +1,4 @@
-package com.codingtroops.restaurantsapp.model
+package com.codingtroops.restaurantsapp.domain
 
 data class Restaurant(
     val id: Int,
