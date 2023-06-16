@@ -1,4 +1,4 @@
-package com.codingtroops.restaurantsapp.data.database
+package com.codingtroops.restaurantsapp.data.local
 
 import androidx.room.*
 import kotlinx.coroutines.flow.Flow

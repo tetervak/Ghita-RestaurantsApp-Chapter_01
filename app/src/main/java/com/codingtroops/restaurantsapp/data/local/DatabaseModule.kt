@@ -1,4 +1,4 @@
-package com.codingtroops.restaurantsapp.data.database
+package com.codingtroops.restaurantsapp.data.local
 
 import android.content.Context
 import androidx.room.Room

@@ -1,9 +1,9 @@
 package com.codingtroops.restaurantsapp.data.repository
 
-import com.codingtroops.restaurantsapp.data.database.RestaurantDao
+import com.codingtroops.restaurantsapp.data.local.RestaurantDao
 import com.codingtroops.restaurantsapp.data.network.RestaurantApi
-import com.codingtroops.restaurantsapp.data.database.IsFavorite
-import com.codingtroops.restaurantsapp.data.database.LocalRestaurant
+import com.codingtroops.restaurantsapp.data.local.IsFavorite
+import com.codingtroops.restaurantsapp.data.local.LocalRestaurant
 import com.codingtroops.restaurantsapp.data.network.RemoteRestaurant
 import com.codingtroops.restaurantsapp.domain.Restaurant
 import kotlinx.coroutines.Deferred
