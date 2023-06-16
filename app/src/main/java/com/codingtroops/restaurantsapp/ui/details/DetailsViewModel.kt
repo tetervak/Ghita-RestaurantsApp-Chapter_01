@@ -1,4 +1,4 @@
-package com.codingtroops.restaurantsapp.screens.details
+package com.codingtroops.restaurantsapp.ui.details
 
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel

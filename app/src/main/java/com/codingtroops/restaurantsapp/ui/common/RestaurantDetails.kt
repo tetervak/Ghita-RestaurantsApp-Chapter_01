@@ -1,4 +1,4 @@
-package com.codingtroops.restaurantsapp.screens.common
+package com.codingtroops.restaurantsapp.ui.common
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.material3.MaterialTheme

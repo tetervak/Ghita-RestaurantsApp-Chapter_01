@@ -8,10 +8,10 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
 import androidx.navigation.navDeepLink
-import com.codingtroops.restaurantsapp.screens.details.DetailsScreen
-import com.codingtroops.restaurantsapp.screens.details.DetailsViewModel
-import com.codingtroops.restaurantsapp.screens.list.ListScreen
-import com.codingtroops.restaurantsapp.screens.list.ListViewModel
+import com.codingtroops.restaurantsapp.ui.details.DetailsScreen
+import com.codingtroops.restaurantsapp.ui.details.DetailsViewModel
+import com.codingtroops.restaurantsapp.ui.list.ListScreen
+import com.codingtroops.restaurantsapp.ui.list.ListViewModel
 import com.codingtroops.restaurantsapp.ui.theme.MainTheme
 
 @Composable

@@ -1,4 +1,4 @@
-package com.codingtroops.restaurantsapp.screens.details
+package com.codingtroops.restaurantsapp.ui.details
 
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.icons.Icons
@@ -13,8 +13,8 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import com.codingtroops.restaurantsapp.R
 import com.codingtroops.restaurantsapp.model.Restaurant
-import com.codingtroops.restaurantsapp.screens.common.RestaurantDetails
-import com.codingtroops.restaurantsapp.screens.common.RestaurantIcon
+import com.codingtroops.restaurantsapp.ui.common.RestaurantDetails
+import com.codingtroops.restaurantsapp.ui.common.RestaurantIcon
 
 @Composable
 fun DetailsScreen(

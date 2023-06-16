@@ -1,4 +1,4 @@
-package com.codingtroops.restaurantsapp.screens.list
+package com.codingtroops.restaurantsapp.ui.list
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope

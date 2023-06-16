@@ -1,4 +1,4 @@
-package com.codingtroops.restaurantsapp.screens.list
+package com.codingtroops.restaurantsapp.ui.list
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
@@ -23,8 +23,8 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import com.codingtroops.restaurantsapp.R
 import com.codingtroops.restaurantsapp.model.Restaurant
-import com.codingtroops.restaurantsapp.screens.common.RestaurantDetails
-import com.codingtroops.restaurantsapp.screens.common.RestaurantIcon
+import com.codingtroops.restaurantsapp.ui.common.RestaurantDetails
+import com.codingtroops.restaurantsapp.ui.common.RestaurantIcon
 
 @Composable
 fun ListScreen(
