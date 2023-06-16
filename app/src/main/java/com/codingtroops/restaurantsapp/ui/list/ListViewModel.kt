@@ -2,8 +2,9 @@ package com.codingtroops.restaurantsapp.ui.list
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.codingtroops.restaurantsapp.data.repository.RestaurantRepository
+import com.codingtroops.restaurantsapp.domain.GetRestaurantsUseCase
 import com.codingtroops.restaurantsapp.domain.Restaurant
+import com.codingtroops.restaurantsapp.domain.ToggleFavoriteUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.CoroutineExceptionHandler
 import kotlinx.coroutines.flow.SharingStarted
@@ -16,11 +17,12 @@ import javax.inject.Inject
 
 @HiltViewModel
 class ListViewModel @Inject constructor(
-    private val repository: RestaurantRepository
+    getRestaurantsUseCase: GetRestaurantsUseCase,
+    private val toggleFavoriteUseCase: ToggleFavoriteUseCase
 ) : ViewModel() {
 
     val listUiState: StateFlow<ListUiState> =
-        repository.getAllRestaurantFlow().map { ListUiState.Success(it) }
+        getRestaurantsUseCase().map { ListUiState.Success(it) }
             .catch { errorHandler }
             .stateIn(
                 scope = viewModelScope,
@@ -32,9 +34,9 @@ class ListViewModel @Inject constructor(
         exception.printStackTrace()
     }
 
-    fun toggleFavorite(id: Int) =
+    fun toggleFavorite(id: Int, currentIsFavorite: Boolean) =
         viewModelScope.launch(errorHandler) {
-            repository.toggleIsFavoriteById(id)
+            toggleFavoriteUseCase(id, currentIsFavorite)
         }
 
     companion object {

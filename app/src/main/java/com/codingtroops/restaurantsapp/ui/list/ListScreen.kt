@@ -33,7 +33,7 @@ fun ListScreen(
 ) {
     val state: State<ListUiState> = viewModel.listUiState.collectAsState()
     val listUiState: ListUiState = state.value
-    if(listUiState is ListUiState.Success){
+    if (listUiState is ListUiState.Success) {
         val restaurants: List<Restaurant> = listUiState.restaurants
         LazyColumn(
             contentPadding = PaddingValues(
@@ -44,7 +44,9 @@ fun ListScreen(
             items(restaurants) { restaurant ->
                 RestaurantItem(
                     item = restaurant,
-                    onFavoriteClick = { viewModel.toggleFavorite(restaurant.id) },
+                    onFavoriteClick = {
+                        viewModel.toggleFavorite(restaurant.id, restaurant.isFavorite)
+                    },
                     onItemClick = onItemClick
                 )
             }
