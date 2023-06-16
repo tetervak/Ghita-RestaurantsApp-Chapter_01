@@ -11,5 +11,7 @@ interface RestaurantRepository {
 
     suspend fun toggleIsFavoriteById(id: Int)
 
+    suspend fun setIsFavoriteById(id: Int, isFavorite: Boolean)
+
     suspend fun refreshRestaurants()
 }

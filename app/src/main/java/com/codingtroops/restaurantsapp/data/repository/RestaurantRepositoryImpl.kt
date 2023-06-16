@@ -2,13 +2,16 @@ package com.codingtroops.restaurantsapp.data.repository
 
 import com.codingtroops.restaurantsapp.data.database.RestaurantDao
 import com.codingtroops.restaurantsapp.data.network.RestaurantApi
-import com.codingtroops.restaurantsapp.model.IsFavorite
+import com.codingtroops.restaurantsapp.data.database.IsFavorite
+import com.codingtroops.restaurantsapp.data.database.LocalRestaurant
+import com.codingtroops.restaurantsapp.data.network.RemoteRestaurant
 import com.codingtroops.restaurantsapp.model.Restaurant
 import kotlinx.coroutines.Deferred
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.async
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flowOn
+import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.withContext
 import javax.inject.Inject
 import javax.inject.Singleton
@@ -20,11 +23,13 @@ class RestaurantRepositoryImpl @Inject constructor(
 ): RestaurantRepository {
 
     override fun getAllRestaurantFlow(): Flow<List<Restaurant>> =
-        restaurantDao.getAllRestaurantFlow().flowOn(Dispatchers.IO)
+        restaurantDao.getAllRestaurantFlow()
+            .map { list -> list.map { it.toRestaurant() } }
+            .flowOn(Dispatchers.IO)
 
     override suspend fun getRestaurantById(id: Int): Restaurant =
         withContext(Dispatchers.IO) {
-            restaurantDao.getRestaurantById(id)
+            restaurantDao.getRestaurantById(id).toRestaurant()
         }
 
     override suspend fun toggleIsFavoriteById(id: Int) =
@@ -32,11 +37,16 @@ class RestaurantRepositoryImpl @Inject constructor(
             restaurantDao.toggleIsFavoriteById(id)
         }
 
+    override suspend fun setIsFavoriteById(id: Int, isFavorite: Boolean) =
+        withContext(Dispatchers.IO) {
+            restaurantDao.setIsFavoriteById(id, isFavorite)
+        }
+
     override suspend fun refreshRestaurants() =
         withContext(Dispatchers.IO) {
 
-            val restaurants: Deferred<List<Restaurant>> = async {
-                restaurantApi.getAllRestaurants()
+            val restaurants: Deferred<List<LocalRestaurant>> = async {
+                restaurantApi.getAllRestaurants().map{ it.toLocalRestaurant() }
             }
 
             val idsOfFavorites: List<Int> =
@@ -48,3 +58,19 @@ class RestaurantRepositoryImpl @Inject constructor(
             restaurantDao.updateIsFavorite(isFavoriteList)
         }
 }
+
+fun LocalRestaurant.toRestaurant(): Restaurant =
+    Restaurant(
+        id = this.id,
+        title = this.title,
+        description = this.description,
+        isFavorite = this.isFavorite
+    )
+
+fun RemoteRestaurant.toLocalRestaurant(): LocalRestaurant =
+    LocalRestaurant(
+        id = this.id,
+        title = this.title,
+        description = this.description,
+        isFavorite = false
+    )

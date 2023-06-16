@@ -1,26 +1,24 @@
 package com.codingtroops.restaurantsapp.data.database
 
 import androidx.room.*
-import com.codingtroops.restaurantsapp.model.IsFavorite
-import com.codingtroops.restaurantsapp.model.Restaurant
 import kotlinx.coroutines.flow.Flow
 
 @Dao
 interface RestaurantDao {
 
     @Query("SELECT * FROM restaurant")
-    fun getAllRestaurantFlow(): Flow<List<Restaurant>>
+    fun getAllRestaurantFlow(): Flow<List<LocalRestaurant>>
 
     @Query("SELECT * FROM restaurant WHERE r_id=:id")
-    suspend fun getRestaurantById(id: Int): Restaurant
+    suspend fun getRestaurantById(id: Int): LocalRestaurant
 
     @Upsert
-    suspend fun upsertRestaurants(restaurants: List<Restaurant>)
+    suspend fun upsertRestaurants(restaurants: List<LocalRestaurant>)
 
-    @Update(entity = Restaurant::class)
+    @Update(entity = LocalRestaurant::class)
     suspend fun updateIsFavorite(isFavorite: IsFavorite)
 
-    @Update(entity = Restaurant::class)
+    @Update(entity = LocalRestaurant::class)
     suspend fun updateIsFavorite(list: List<IsFavorite>)
 
     @Query("SELECT r_id FROM restaurant WHERE is_favorite = 1")
@@ -42,7 +40,7 @@ interface RestaurantDao {
     suspend fun deleteAllRestaurants()
 
     @Transaction
-    suspend fun refreshRestaurants(list: List<Restaurant>){
+    suspend fun refreshRestaurants(list: List<LocalRestaurant>){
         deleteAllRestaurants()
         upsertRestaurants(list)
     }
