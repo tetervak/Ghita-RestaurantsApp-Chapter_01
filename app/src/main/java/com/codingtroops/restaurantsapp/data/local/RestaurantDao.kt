@@ -31,7 +31,7 @@ interface RestaurantDao {
     suspend fun setIsFavoriteById(id: Int, isFavorite: Boolean)
 
     @Transaction
-    suspend fun toggleIsFavoriteById(id: Int){
+    suspend fun toggleIsFavoriteById(id: Int) {
         val isFavorite: Boolean = getIsFavoriteById(id)
         setIsFavoriteById(id, !isFavorite)
     }
@@ -40,7 +40,7 @@ interface RestaurantDao {
     suspend fun deleteAllRestaurants()
 
     @Transaction
-    suspend fun refreshRestaurants(list: List<LocalRestaurant>){
+    suspend fun refreshRestaurants(list: List<LocalRestaurant>) {
         deleteAllRestaurants()
         upsertRestaurants(list)
     }

@@ -9,7 +9,7 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltAndroidApp
-class RestaurantsApplication(): Application() {
+class RestaurantsApplication() : Application() {
 
     companion object {
         private val mainScope = MainScope()

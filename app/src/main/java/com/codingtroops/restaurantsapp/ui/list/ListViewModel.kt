@@ -22,9 +22,7 @@ class ListViewModel @Inject constructor(
 ) : ViewModel() {
 
     val listUiState: StateFlow<ListUiState> =
-        getRestaurantsUseCase().map { ListUiState.Success(it) }
-            .catch { errorHandler }
-            .stateIn(
+        getRestaurantsUseCase().map { ListUiState.Success(it) }.catch { errorHandler }.stateIn(
                 scope = viewModelScope,
                 started = SharingStarted.WhileSubscribed(TIMEOUT_MILLIS),
                 initialValue = ListUiState.Loading
@@ -34,18 +32,17 @@ class ListViewModel @Inject constructor(
         exception.printStackTrace()
     }
 
-    fun toggleFavorite(id: Int, currentIsFavorite: Boolean) =
-        viewModelScope.launch(errorHandler) {
-            toggleFavoriteUseCase(id, currentIsFavorite)
-        }
+    fun toggleFavorite(id: Int, currentIsFavorite: Boolean) = viewModelScope.launch(errorHandler) {
+        toggleFavoriteUseCase(id, currentIsFavorite)
+    }
 
     companion object {
         private const val TIMEOUT_MILLIS = 5_000L
     }
 }
 
-sealed interface ListUiState{
-    object Loading: ListUiState
-    data class Success(val restaurants: List<Restaurant>): ListUiState
+sealed interface ListUiState {
+    object Loading : ListUiState
+    data class Success(val restaurants: List<Restaurant>) : ListUiState
 }
 

@@ -18,11 +18,8 @@ object DatabaseModule {
     fun provideRestaurantDatabase(
         @ApplicationContext applicationContext: Context
     ): RestaurantDatabase = Room.databaseBuilder(
-        applicationContext,
-        RestaurantDatabase::class.java,
-        "restaurants_database")
-        .fallbackToDestructiveMigration()
-        .build()
+        applicationContext, RestaurantDatabase::class.java, "restaurants_database"
+    ).fallbackToDestructiveMigration().build()
 
     @Singleton
     @Provides

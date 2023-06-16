@@ -36,25 +36,20 @@ import com.codingtroops.restaurantsapp.ui.navigation.ListDestination
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun ListScreen(
-    viewModel: ListViewModel,
-    onItemClick: (id: Int) -> Unit,
-    modifier: Modifier = Modifier
+    viewModel: ListViewModel, onItemClick: (id: Int) -> Unit, modifier: Modifier = Modifier
 ) {
     val state: State<ListUiState> = viewModel.listUiState.collectAsState()
     val listUiState: ListUiState = state.value
 
     val scrollBehavior = TopAppBarDefaults.enterAlwaysScrollBehavior()
 
-    Scaffold(
-        modifier = modifier.nestedScroll(scrollBehavior.nestedScrollConnection),
-        topBar = {
-            RestaurantTopAppBar(
-                title = stringResource(ListDestination.titleRes),
-                canNavigateBack = false,
-                scrollBehavior = scrollBehavior
-            )
-        }
-    ) { innerPadding ->
+    Scaffold(modifier = modifier.nestedScroll(scrollBehavior.nestedScrollConnection), topBar = {
+        RestaurantTopAppBar(
+            title = stringResource(ListDestination.titleRes),
+            canNavigateBack = false,
+            scrollBehavior = scrollBehavior
+        )
+    }) { innerPadding ->
         if (listUiState is ListUiState.Success) {
             ListBody(
                 restaurants = listUiState.restaurants,
@@ -79,26 +74,20 @@ fun ListBody(
 ) {
     LazyColumn(
         contentPadding = PaddingValues(
-            vertical = 8.dp,
-            horizontal = 8.dp
-        ),
-        modifier = modifier
+            vertical = 8.dp, horizontal = 8.dp
+        ), modifier = modifier
     ) {
         items(restaurants) { restaurant ->
-            RestaurantItem(
-                item = restaurant,
+            RestaurantItem(item = restaurant,
                 onFavoriteClick = { onFavoriteClick(restaurant) },
-                onItemClick = { onItemClick(restaurant.id) }
-            )
+                onItemClick = { onItemClick(restaurant.id) })
         }
     }
 }
 
 @Composable
 fun RestaurantItem(
-    item: Restaurant,
-    onFavoriteClick: () -> Unit,
-    onItemClick: () -> Unit
+    item: Restaurant, onFavoriteClick: () -> Unit, onItemClick: () -> Unit
 ) {
     Card(
         elevation = CardDefaults.cardElevation(defaultElevation = 4.dp),
@@ -107,26 +96,20 @@ fun RestaurantItem(
             .clickable(onClick = onItemClick)
     ) {
         Row(
-            verticalAlignment = Alignment.CenterVertically,
-            modifier = Modifier.padding(8.dp)
+            verticalAlignment = Alignment.CenterVertically, modifier = Modifier.padding(8.dp)
         ) {
             RestaurantIcon(
-                icon = Icons.Filled.Place,
-                modifier = Modifier.weight(0.15f)
+                icon = Icons.Filled.Place, modifier = Modifier.weight(0.15f)
             )
             RestaurantDetails(
-                title = item.title,
-                description = item.description,
-                modifier = Modifier.weight(0.7f)
+                title = item.title, description = item.description, modifier = Modifier.weight(0.7f)
             )
             SelectionIcon(
                 icon = if (item.isFavorite) {
                     Icons.Filled.Favorite
                 } else {
                     Icons.Filled.FavoriteBorder
-                },
-                onClick = onFavoriteClick,
-                modifier = Modifier.weight(0.15f)
+                }, onClick = onFavoriteClick, modifier = Modifier.weight(0.15f)
             )
         }
     }
@@ -134,12 +117,9 @@ fun RestaurantItem(
 
 @Composable
 private fun SelectionIcon(
-    icon: ImageVector,
-    onClick: () -> Unit,
-    modifier: Modifier = Modifier
+    icon: ImageVector, onClick: () -> Unit, modifier: Modifier = Modifier
 ) {
-    Image(
-        imageVector = icon,
+    Image(imageVector = icon,
         contentDescription = stringResource(R.string.selection_icon),
         modifier = modifier
             .padding(8.dp)

@@ -14,9 +14,8 @@ import javax.inject.Inject
 
 @HiltViewModel
 class DetailsViewModel @Inject constructor(
-    repository: RestaurantRepository,
-    stateHandle: SavedStateHandle
-): ViewModel() {
+    repository: RestaurantRepository, stateHandle: SavedStateHandle
+) : ViewModel() {
 
     private val _detailsUiState: MutableStateFlow<DetailsUiState> =
         MutableStateFlow(DetailsUiState.Loading)
@@ -34,6 +33,6 @@ class DetailsViewModel @Inject constructor(
 }
 
 sealed interface DetailsUiState {
-    object Loading: DetailsUiState
-    data class Success(val restaurant: Restaurant): DetailsUiState
+    object Loading : DetailsUiState
+    data class Success(val restaurant: Restaurant) : DetailsUiState
 }

@@ -15,16 +15,13 @@ fun RestaurantDetails(
     horizontalAlignment: Alignment.Horizontal = Alignment.Start,
 ) {
     Column(
-        horizontalAlignment = horizontalAlignment,
-        modifier = modifier
+        horizontalAlignment = horizontalAlignment, modifier = modifier
     ) {
         Text(
-            text = title,
-            style = MaterialTheme.typography.headlineSmall
+            text = title, style = MaterialTheme.typography.headlineSmall
         )
         Text(
-            text = description,
-            style = MaterialTheme.typography.bodyLarge
+            text = description, style = MaterialTheme.typography.bodyLarge
         )
     }
 }

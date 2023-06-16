@@ -18,59 +18,45 @@ import javax.inject.Singleton
 
 @Singleton
 class RestaurantRepositoryImpl @Inject constructor(
-    private val restaurantApi: RestaurantApi,
-    private val restaurantDao: RestaurantDao
-): RestaurantRepository {
+    private val restaurantApi: RestaurantApi, private val restaurantDao: RestaurantDao
+) : RestaurantRepository {
 
     override fun getAllRestaurantFlow(): Flow<List<Restaurant>> =
-        restaurantDao.getAllRestaurantFlow()
-            .map { list -> list.map { it.toRestaurant() } }
+        restaurantDao.getAllRestaurantFlow().map { list -> list.map { it.toRestaurant() } }
             .flowOn(Dispatchers.IO)
 
-    override suspend fun getRestaurantById(id: Int): Restaurant =
-        withContext(Dispatchers.IO) {
-            restaurantDao.getRestaurantById(id).toRestaurant()
-        }
+    override suspend fun getRestaurantById(id: Int): Restaurant = withContext(Dispatchers.IO) {
+        restaurantDao.getRestaurantById(id).toRestaurant()
+    }
 
-    override suspend fun toggleIsFavoriteById(id: Int) =
-        withContext(Dispatchers.IO) {
-            restaurantDao.toggleIsFavoriteById(id)
-        }
+    override suspend fun toggleIsFavoriteById(id: Int) = withContext(Dispatchers.IO) {
+        restaurantDao.toggleIsFavoriteById(id)
+    }
 
     override suspend fun setIsFavoriteById(id: Int, isFavorite: Boolean) =
         withContext(Dispatchers.IO) {
             restaurantDao.setIsFavoriteById(id, isFavorite)
         }
 
-    override suspend fun refreshRestaurants() =
-        withContext(Dispatchers.IO) {
+    override suspend fun refreshRestaurants() = withContext(Dispatchers.IO) {
 
-            val restaurants: Deferred<List<LocalRestaurant>> = async {
-                restaurantApi.getAllRestaurants().map{ it.toLocalRestaurant() }
-            }
-
-            val idsOfFavorites: List<Int> =
-                restaurantDao.getIdsOfFavoriteRestaurants()
-            val isFavoriteList: List<IsFavorite> =
-                idsOfFavorites.map { id -> IsFavorite(id = id, isFavorite = true) }
-
-            restaurantDao.refreshRestaurants(restaurants.await())
-            restaurantDao.updateIsFavorite(isFavoriteList)
+        val restaurants: Deferred<List<LocalRestaurant>> = async {
+            restaurantApi.getAllRestaurants().map { it.toLocalRestaurant() }
         }
+
+        val idsOfFavorites: List<Int> = restaurantDao.getIdsOfFavoriteRestaurants()
+        val isFavoriteList: List<IsFavorite> =
+            idsOfFavorites.map { id -> IsFavorite(id = id, isFavorite = true) }
+
+        restaurantDao.refreshRestaurants(restaurants.await())
+        restaurantDao.updateIsFavorite(isFavoriteList)
+    }
 }
 
-fun LocalRestaurant.toRestaurant(): Restaurant =
-    Restaurant(
-        id = this.id,
-        title = this.title,
-        description = this.description,
-        isFavorite = this.isFavorite
-    )
+fun LocalRestaurant.toRestaurant(): Restaurant = Restaurant(
+    id = this.id, title = this.title, description = this.description, isFavorite = this.isFavorite
+)
 
-fun RemoteRestaurant.toLocalRestaurant(): LocalRestaurant =
-    LocalRestaurant(
-        id = this.id,
-        title = this.title,
-        description = this.description,
-        isFavorite = false
-    )
+fun RemoteRestaurant.toLocalRestaurant(): LocalRestaurant = LocalRestaurant(
+    id = this.id, title = this.title, description = this.description, isFavorite = false
+)

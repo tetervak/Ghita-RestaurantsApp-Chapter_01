@@ -31,15 +31,13 @@ fun DetailsScreen(
     val state: State<DetailsUiState> = viewModel.detailsUiState.collectAsState()
     val detailsUiState: DetailsUiState = state.value
 
-    Scaffold(
-        topBar = {
-            RestaurantTopAppBar(
-                title = stringResource(DetailsDestination.titleRes),
-                canNavigateBack = true,
-                navigateUp = navigateBack
-            )
-        }
-    ) { innerPadding ->
+    Scaffold(topBar = {
+        RestaurantTopAppBar(
+            title = stringResource(DetailsDestination.titleRes),
+            canNavigateBack = true,
+            navigateUp = navigateBack
+        )
+    }) { innerPadding ->
         if (detailsUiState is DetailsUiState.Success) {
             DetailsBody(
                 restaurant = detailsUiState.restaurant,
@@ -53,8 +51,7 @@ fun DetailsScreen(
 
 @Composable
 private fun DetailsBody(
-    restaurant: Restaurant,
-    modifier: Modifier = Modifier
+    restaurant: Restaurant, modifier: Modifier = Modifier
 ) {
     Column(
         horizontalAlignment = Alignment.CenterHorizontally,
@@ -63,8 +60,7 @@ private fun DetailsBody(
             .padding(16.dp)
     ) {
         RestaurantIcon(
-            icon = Icons.Filled.Place,
-            modifier = Modifier.padding(top = 32.dp, bottom = 32.dp)
+            icon = Icons.Filled.Place, modifier = Modifier.padding(top = 32.dp, bottom = 32.dp)
         )
         RestaurantDetails(
             title = restaurant.title,
