@@ -1,4 +1,4 @@
-package com.codingtroops.restaurantsapp.data.network
+package com.codingtroops.restaurantsapp.data.remote
 
 import dagger.Module
 import dagger.Provides

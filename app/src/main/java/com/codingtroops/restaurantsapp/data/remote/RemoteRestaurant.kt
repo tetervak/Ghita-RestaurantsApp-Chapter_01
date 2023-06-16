@@ -1,4 +1,4 @@
-package com.codingtroops.restaurantsapp.data.network
+package com.codingtroops.restaurantsapp.data.remote
 
 import com.google.gson.annotations.SerializedName
 
