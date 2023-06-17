@@ -45,4 +45,3 @@ sealed interface ListUiState {
     object Loading : ListUiState
     data class Success(val restaurants: List<Restaurant>) : ListUiState
 }
-

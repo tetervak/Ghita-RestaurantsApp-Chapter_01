@@ -5,7 +5,7 @@
     <string name="more_info_coming_soon">More info coming soon!</string>
 
     <!-- Navigation -->
-    <string name="nav_list">Restaurant List</string>
-    <string name="nav_details">Restaurant Details</string>
+    <string name="nav_list_title">Restaurant List</string>
+    <string name="nav_details_title">Restaurant Details</string>
     <string name="back_button">Back</string>
 </resources>

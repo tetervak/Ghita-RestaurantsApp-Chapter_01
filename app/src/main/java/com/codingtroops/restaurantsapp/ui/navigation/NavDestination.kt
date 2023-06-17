@@ -19,7 +19,7 @@ package com.codingtroops.restaurantsapp.ui.navigation
 /**
  * Interface to describe the navigation destinations for the app
  */
-interface NavigationDestination {
+interface NavDestination {
     /**
      * Unique name to define the path for a composable
      */
