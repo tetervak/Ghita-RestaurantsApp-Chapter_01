@@ -3,7 +3,6 @@ package com.codingtroops.restaurantsapp.ui.list
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.codingtroops.restaurantsapp.domain.GetRestaurantsUseCase
-import com.codingtroops.restaurantsapp.domain.Restaurant
 import com.codingtroops.restaurantsapp.domain.ToggleFavoriteUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.CoroutineExceptionHandler
@@ -39,9 +38,4 @@ class ListViewModel @Inject constructor(
     companion object {
         private const val TIMEOUT_MILLIS = 5_000L
     }
-}
-
-sealed interface ListUiState {
-    object Loading : ListUiState
-    data class Success(val restaurants: List<Restaurant>) : ListUiState
 }

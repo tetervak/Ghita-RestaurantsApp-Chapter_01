@@ -31,8 +31,3 @@ class DetailsViewModel @Inject constructor(
         }
     }
 }
-
-sealed interface DetailsUiState {
-    object Loading : DetailsUiState
-    data class Success(val restaurant: Restaurant) : DetailsUiState
-}
