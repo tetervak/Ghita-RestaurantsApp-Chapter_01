@@ -5,6 +5,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.codingtroops.restaurantsapp.data.repository.RestaurantRepository
 import com.codingtroops.restaurantsapp.domain.Restaurant
+import com.codingtroops.restaurantsapp.ui.navigation.DetailsDestination
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -22,7 +23,7 @@ class DetailsViewModel @Inject constructor(
     val detailsUiState: StateFlow<DetailsUiState> = _detailsUiState
 
     init {
-        val id: Int = stateHandle.get<Int>("restaurant_id")!!
+        val id: Int = stateHandle.get<Int>(DetailsDestination.restaurantIdArg)!!
         viewModelScope.launch {
             val restaurant: Restaurant = repository.getRestaurantById(id)
             _detailsUiState.update {
