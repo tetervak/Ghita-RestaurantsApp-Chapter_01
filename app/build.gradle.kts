@@ -85,7 +85,7 @@ dependencies {
     // need to receive remote data
     implementation("com.squareup.retrofit2:converter-moshi:2.9.0")
 
-    // needed by the local database
+    // needed by the local database, do not change it to 2.6.0
     val roomVersion="2.5.2"
     implementation("androidx.room:room-runtime:$roomVersion")
     ksp("androidx.room:room-compiler:$roomVersion")
