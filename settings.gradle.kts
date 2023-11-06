@@ -1,8 +1,10 @@
+@file:Suppress("UnstableApiUsage")
+
 pluginManagement {
     repositories {
+        gradlePluginPortal()
         google()
         mavenCentral()
-        gradlePluginPortal()
     }
 }
 dependencyResolutionManagement {
@@ -13,4 +15,4 @@ dependencyResolutionManagement {
     }
 }
 rootProject.name = "Restaurants App"
-include ':app'
+include(":app")

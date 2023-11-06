@@ -1,15 +1,15 @@
 package com.codingtroops.restaurantsapp.data.remote
 
-import com.google.gson.annotations.SerializedName
+import com.squareup.moshi.Json
 
 data class RemoteRestaurant(
 
-    @SerializedName("r_id")
+    @field:Json(name = "r_id")
     val id: Int,
 
-    @SerializedName("r_title")
+    @field:Json(name ="r_title")
     val title: String,
 
-    @SerializedName("r_description")
+    @field:Json(name = "r_description")
     val description: String
 )
