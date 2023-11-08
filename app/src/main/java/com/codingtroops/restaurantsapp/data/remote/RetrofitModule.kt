@@ -12,7 +12,7 @@ import javax.inject.Singleton
 @InstallIn(SingletonComponent::class)
 object RetrofitModule {
 
-    private const val baseUrl = "https://restaurantsapp-android-default-rtdb.firebaseio.com/"
+    private const val baseUrl = "https://myrestaurants2-191aa-default-rtdb.firebaseio.com"
 
     @Provides
     @Singleton

@@ -18,15 +18,16 @@ import javax.inject.Singleton
 
 @Singleton
 class RestaurantRepositoryImpl @Inject constructor(
-    private val restaurantApi: RestaurantApi, private val restaurantDao: RestaurantDao
+    private val restaurantApi: RestaurantApi,
+    private val restaurantDao: RestaurantDao
 ) : RestaurantRepository {
 
     override fun getAllRestaurantFlow(): Flow<List<Restaurant>> =
         restaurantDao.getAllRestaurantFlow().map { list -> list.map { it.toRestaurant() } }
             .flowOn(Dispatchers.IO)
 
-    override suspend fun getRestaurantById(id: Int): Restaurant = withContext(Dispatchers.IO) {
-        restaurantDao.getRestaurantById(id).toRestaurant()
+    override suspend fun getRestaurantById(id: Int): Restaurant? = withContext(Dispatchers.IO) {
+        restaurantDao.getRestaurantById(id)?.toRestaurant()
     }
 
     override suspend fun toggleIsFavoriteById(id: Int) = withContext(Dispatchers.IO) {

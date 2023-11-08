@@ -1,5 +1,6 @@
 package com.codingtroops.restaurantsapp.ui.details
 
+import android.util.Log
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -25,9 +26,13 @@ class DetailsViewModel @Inject constructor(
     init {
         val id: Int = stateHandle.get<Int>(DetailsDestination.restaurantIdArg)!!
         viewModelScope.launch {
-            val restaurant: Restaurant = repository.getRestaurantById(id)
-            _detailsUiState.update {
-                DetailsUiState.Success(restaurant = restaurant)
+            val restaurant: Restaurant? = repository.getRestaurantById(id)
+            if(restaurant != null){
+                _detailsUiState.update {
+                    DetailsUiState.Success(restaurant = restaurant)
+                }
+            } else {
+                Log.e("DetailsViewModel", "data for id=$id is not found")
             }
         }
     }

@@ -7,7 +7,7 @@ interface RestaurantRepository {
 
     fun getAllRestaurantFlow(): Flow<List<Restaurant>>
 
-    suspend fun getRestaurantById(id: Int): Restaurant
+    suspend fun getRestaurantById(id: Int): Restaurant?
 
     suspend fun toggleIsFavoriteById(id: Int)
 
