@@ -80,7 +80,7 @@ dependencies {
     implementation("androidx.navigation:navigation-compose:$navVersion")
 
     // needed for the view model per destination, the hiltViewModel() function
-    implementation("androidx.hilt:hilt-navigation-compose:1.0.0")
+    implementation("androidx.hilt:hilt-navigation-compose:1.1.0")
 
     // need to receive remote data
     implementation("com.squareup.retrofit2:converter-moshi:2.9.0")
