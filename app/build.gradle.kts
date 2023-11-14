@@ -12,11 +12,11 @@ plugins {
 }
 
 android {
-    namespace = "com.codingtroops.restaurantsapp"
+    namespace = "ca.tetervak.restaurantapp"
     compileSdk = 34
 
     defaultConfig {
-        applicationId = "com.codingtroops.restaurantsapp"
+        applicationId = "ca.tetervak.restaurantapp"
         minSdk = 31
         targetSdk = 33
         versionCode = 1
