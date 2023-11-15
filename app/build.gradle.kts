@@ -99,6 +99,10 @@ dependencies {
 
     // needed for Hilt with Work Manager
     implementation("androidx.hilt:hilt-work:1.1.0")
+    kapt("androidx.hilt:hilt-compiler:1.1.0")
+
+    // needed to initialize the Hilt worker factory
+    implementation("androidx.startup:startup-runtime:1.1.1")
 
     testImplementation("junit:junit:4.13.2")
     androidTestImplementation("androidx.test.ext:junit:1.1.5")

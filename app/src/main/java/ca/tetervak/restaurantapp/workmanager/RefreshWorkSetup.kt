@@ -15,12 +15,17 @@ fun setupRefreshWork(context: Context) {
     // it is not allowed be more often than every 15 min
     val repeatingRequest = PeriodicWorkRequestBuilder<RefreshWorker>(
         repeatInterval = 15,
-        TimeUnit.MINUTES
+        repeatIntervalTimeUnit = TimeUnit.MINUTES
     ).setConstraints(constraints).build()
 
-    WorkManager.getInstance(context).enqueueUniquePeriodicWork(
+    val workManager = WorkManager.getInstance(context)
+
+    //val oneTimeWorkRequest = OneTimeWorkRequestBuilder<RefreshWorker>().build()
+    //workManager.enqueue(oneTimeWorkRequest)
+
+    workManager.enqueueUniquePeriodicWork(
         RefreshWorker.WORK_NAME,
-        ExistingPeriodicWorkPolicy.UPDATE,
+        ExistingPeriodicWorkPolicy.CANCEL_AND_REENQUEUE,
         repeatingRequest
     )
 }
