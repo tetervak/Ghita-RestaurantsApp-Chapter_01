@@ -3,6 +3,7 @@ package ca.tetervak.restaurantapp.ui.list
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import ca.tetervak.restaurantapp.domain.GetRestaurantsUseCase
+import ca.tetervak.restaurantapp.domain.ReloadUseCase
 import ca.tetervak.restaurantapp.domain.ToggleFavoriteUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.CoroutineExceptionHandler
@@ -17,7 +18,8 @@ import javax.inject.Inject
 @HiltViewModel
 class ListViewModel @Inject constructor(
     getRestaurantsUseCase: GetRestaurantsUseCase,
-    private val toggleFavoriteUseCase: ToggleFavoriteUseCase
+    private val toggleFavoriteUseCase: ToggleFavoriteUseCase,
+    private val reloadUseCase: ReloadUseCase
 ) : ViewModel() {
 
     val listUiState: StateFlow<ListUiState> =
@@ -33,6 +35,10 @@ class ListViewModel @Inject constructor(
 
     fun toggleFavorite(id: Int, currentIsFavorite: Boolean) = viewModelScope.launch(errorHandler) {
         toggleFavoriteUseCase(id, currentIsFavorite)
+    }
+
+    fun reload() = viewModelScope.launch(errorHandler) {
+        reloadUseCase()
     }
 
     companion object {

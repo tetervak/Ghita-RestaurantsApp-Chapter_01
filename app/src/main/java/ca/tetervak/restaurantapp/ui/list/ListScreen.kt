@@ -30,27 +30,23 @@ import ca.tetervak.restaurantapp.R
 import ca.tetervak.restaurantapp.domain.Restaurant
 import ca.tetervak.restaurantapp.ui.common.RestaurantDetails
 import ca.tetervak.restaurantapp.ui.common.RestaurantIcon
-import ca.tetervak.restaurantapp.ui.common.RestaurantTopAppBar
-import ca.tetervak.restaurantapp.ui.navigation.ListDestination
-
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun ListScreen(
-    viewModel: ListViewModel, onItemClick: (id: Int) -> Unit, modifier: Modifier = Modifier
+    viewModel: ListViewModel,
+    onItemClick: (id: Int) -> Unit,
+    modifier: Modifier = Modifier
 ) {
     val state: State<ListUiState> = viewModel.listUiState.collectAsState()
     val listUiState: ListUiState = state.value
 
-    val scrollBehavior = TopAppBarDefaults.enterAlwaysScrollBehavior()
+    val scrollBehavior = TopAppBarDefaults.pinnedScrollBehavior()
 
-    Scaffold(modifier = modifier.nestedScroll(scrollBehavior.nestedScrollConnection), topBar = {
-        RestaurantTopAppBar(
-            title = stringResource(ListDestination.titleRes),
-            canNavigateBack = false,
-            scrollBehavior = scrollBehavior
-        )
-    }) { innerPadding ->
+    Scaffold(
+        modifier = modifier.nestedScroll(scrollBehavior.nestedScrollConnection),
+        topBar = { ListTopBar(viewModel::reload, scrollBehavior) }
+    ) { innerPadding ->
         if (listUiState is ListUiState.Success) {
             ListBody(
                 restaurants = listUiState.restaurants,

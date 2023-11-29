@@ -31,7 +31,7 @@ fun RestaurantNavHost(navController: NavHostController) {
             })
         ) {
             val viewModel: DetailsViewModel = hiltViewModel()
-            DetailsScreen(viewModel = viewModel, navigateBack = { navController.popBackStack() })
+            DetailsScreen(viewModel = viewModel, onBack = { navController.popBackStack() })
         }
     }
 }
