@@ -1,15 +1,17 @@
 package ca.tetervak.restaurantapp.data.remote
 
-import com.squareup.moshi.Json
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
+@Serializable
 data class RemoteRestaurant(
 
-    @field:Json(name = "r_id")
+    @SerialName("r_id")
     val id: Int,
 
-    @field:Json(name ="r_title")
+    @SerialName("r_title")
     val title: String,
 
-    @field:Json(name = "r_description")
+    @SerialName("r_description")
     val description: String
 )
