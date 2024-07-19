@@ -16,11 +16,15 @@ object RetrofitModule {
 
     private const val baseUrl = "https://restaurantsapp-android-default-rtdb.firebaseio.com/"
 
+    private val json: Json = Json{
+        ignoreUnknownKeys = true
+    }
+
     @Provides
     @Singleton
     fun retrofit(): Retrofit =
         Retrofit.Builder()
-            .addConverterFactory(Json.asConverterFactory("application/json".toMediaType()))
+            .addConverterFactory(json.asConverterFactory("application/json".toMediaType()))
             .baseUrl(baseUrl)
             .build()
 
