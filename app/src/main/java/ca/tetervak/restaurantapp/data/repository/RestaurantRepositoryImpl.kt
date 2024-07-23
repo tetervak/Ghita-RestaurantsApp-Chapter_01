@@ -6,51 +6,67 @@ import ca.tetervak.restaurantapp.data.local.RestaurantDao
 import ca.tetervak.restaurantapp.data.remote.RemoteRestaurant
 import ca.tetervak.restaurantapp.data.remote.RestaurantApi
 import ca.tetervak.restaurantapp.domain.Restaurant
+import kotlinx.coroutines.CoroutineDispatcher
+import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Deferred
+import kotlinx.coroutines.DelicateCoroutinesApi
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.async
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flowOn
 import kotlinx.coroutines.flow.map
+import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import javax.inject.Inject
 import javax.inject.Singleton
 
+@OptIn(DelicateCoroutinesApi::class)
 @Singleton
-class RestaurantRepositoryImpl @Inject constructor(
+class RestaurantRepositoryImpl(
     private val restaurantApi: RestaurantApi,
-    private val restaurantDao: RestaurantDao
+    private val restaurantDao: RestaurantDao,
+    private val externalScope: CoroutineScope,
+    private val dispatcher: CoroutineDispatcher
 ) : RestaurantRepository {
+
+    @Inject
+    constructor(
+        restaurantApi: RestaurantApi,
+        restaurantDao: RestaurantDao
+    ) : this(restaurantApi, restaurantDao, GlobalScope, Dispatchers.IO)
 
     override fun getAllRestaurantFlow(): Flow<List<Restaurant>> =
         restaurantDao.getAllRestaurantFlow().map { list -> list.map { it.toRestaurant() } }
-            .flowOn(Dispatchers.IO)
+            .flowOn(dispatcher)
 
-    override suspend fun getRestaurantById(id: Int): Restaurant? = withContext(Dispatchers.IO) {
+    override suspend fun getRestaurantById(id: Int): Restaurant? = withContext(dispatcher) {
         restaurantDao.getRestaurantById(id)?.toRestaurant()
     }
 
-    override suspend fun toggleIsFavoriteById(id: Int) = withContext(Dispatchers.IO) {
+    override suspend fun toggleIsFavoriteById(id: Int) = withContext(dispatcher) {
         restaurantDao.toggleIsFavoriteById(id)
     }
 
     override suspend fun setIsFavoriteById(id: Int, isFavorite: Boolean) =
-        withContext(Dispatchers.IO) {
+        withContext(dispatcher) {
             restaurantDao.setIsFavoriteById(id, isFavorite)
         }
 
-    override suspend fun refreshRestaurants() = withContext(Dispatchers.IO) {
+    override suspend fun refreshRestaurants() {
+        externalScope.launch(dispatcher) {
 
-        val restaurants: Deferred<List<LocalRestaurant>> = async {
-            restaurantApi.getAllRestaurants().map { it.toLocalRestaurant() }
+            val restaurants: Deferred<List<LocalRestaurant>> = async {
+                restaurantApi.getAllRestaurants().map { it.toLocalRestaurant() }
+            }
+
+            val idsOfFavorites: List<Int> = restaurantDao.getIdsOfFavoriteRestaurants()
+            val isFavoriteList: List<IsFavorite> =
+                idsOfFavorites.map { id -> IsFavorite(id = id, isFavorite = true) }
+
+            restaurantDao.refreshRestaurants(restaurants.await())
+            restaurantDao.updateIsFavorite(isFavoriteList)
         }
-
-        val idsOfFavorites: List<Int> = restaurantDao.getIdsOfFavoriteRestaurants()
-        val isFavoriteList: List<IsFavorite> =
-            idsOfFavorites.map { id -> IsFavorite(id = id, isFavorite = true) }
-
-        restaurantDao.refreshRestaurants(restaurants.await())
-        restaurantDao.updateIsFavorite(isFavoriteList)
     }
 }
 
