@@ -68,6 +68,12 @@ class RestaurantRepositoryImpl(
             restaurantDao.updateIsFavorite(isFavoriteList)
         }
     }
+
+    override suspend fun clearDatabase() {
+        externalScope.launch(dispatcher) {
+            restaurantDao.deleteAllRestaurants()
+        }
+    }
 }
 
 fun LocalRestaurant.toRestaurant(): Restaurant = Restaurant(

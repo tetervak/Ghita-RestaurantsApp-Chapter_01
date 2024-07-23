@@ -45,7 +45,7 @@ fun ListScreen(
 
     Scaffold(
         modifier = modifier.nestedScroll(scrollBehavior.nestedScrollConnection),
-        topBar = { ListTopBar(viewModel::reload, scrollBehavior) }
+        topBar = { ListTopBar(viewModel::reload, viewModel::clear, scrollBehavior) }
     ) { innerPadding ->
         if (listUiState is ListUiState.Success) {
             ListBody(

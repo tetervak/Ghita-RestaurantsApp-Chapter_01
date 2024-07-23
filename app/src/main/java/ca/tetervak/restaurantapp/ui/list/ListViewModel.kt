@@ -2,6 +2,7 @@ package ca.tetervak.restaurantapp.ui.list
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import ca.tetervak.restaurantapp.domain.ClearUseCase
 import ca.tetervak.restaurantapp.domain.GetRestaurantsUseCase
 import ca.tetervak.restaurantapp.domain.ReloadUseCase
 import ca.tetervak.restaurantapp.domain.ToggleFavoriteUseCase
@@ -19,7 +20,8 @@ import javax.inject.Inject
 class ListViewModel @Inject constructor(
     getRestaurantsUseCase: GetRestaurantsUseCase,
     private val toggleFavoriteUseCase: ToggleFavoriteUseCase,
-    private val reloadUseCase: ReloadUseCase
+    private val reloadUseCase: ReloadUseCase,
+    private val clearUseCase: ClearUseCase
 ) : ViewModel() {
 
     val listUiState: StateFlow<ListUiState> =
@@ -39,6 +41,10 @@ class ListViewModel @Inject constructor(
 
     fun reload() = viewModelScope.launch(errorHandler) {
         reloadUseCase()
+    }
+
+    fun clear() = viewModelScope.launch(errorHandler) {
+        clearUseCase()
     }
 
     companion object {

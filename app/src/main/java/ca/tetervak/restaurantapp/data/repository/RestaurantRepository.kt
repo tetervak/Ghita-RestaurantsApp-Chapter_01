@@ -14,4 +14,6 @@ interface RestaurantRepository {
     suspend fun setIsFavoriteById(id: Int, isFavorite: Boolean)
 
     suspend fun refreshRestaurants()
+
+    suspend fun clearDatabase()
 }

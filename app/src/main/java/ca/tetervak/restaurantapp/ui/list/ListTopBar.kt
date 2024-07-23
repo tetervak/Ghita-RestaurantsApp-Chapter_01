@@ -1,6 +1,7 @@
 package ca.tetervak.restaurantapp.ui.list
 
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Clear
 import androidx.compose.material.icons.filled.Refresh
 import androidx.compose.material3.CenterAlignedTopAppBar
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -19,6 +20,7 @@ import ca.tetervak.restaurantapp.R
 @OptIn(ExperimentalMaterial3Api::class)
 fun ListTopBar(
     onReload: () -> Unit,
+    onClear: () -> Unit,
     scrollBehavior: TopAppBarScrollBehavior
 ) = CenterAlignedTopAppBar(
         colors = TopAppBarDefaults.centerAlignedTopAppBarColors(
@@ -32,6 +34,17 @@ fun ListTopBar(
             )
         },
         actions = {
+            IconButton(
+                onClick = onClear,
+                colors = IconButtonDefaults.iconButtonColors(
+                    contentColor = MaterialTheme.colorScheme.primary
+                )
+            ) {
+                Icon(
+                    imageVector = Icons.Filled.Clear,
+                    contentDescription = stringResource(R.string.clear)
+                )
+            }
             IconButton(
                 onClick = onReload,
                 colors = IconButtonDefaults.iconButtonColors(
