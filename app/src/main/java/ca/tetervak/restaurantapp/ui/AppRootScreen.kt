@@ -6,7 +6,7 @@ import androidx.navigation.compose.rememberNavController
 import ca.tetervak.restaurantapp.ui.navigation.RestaurantNavHost
 
 @Composable
-fun AppScreen(navController: NavHostController = rememberNavController()) {
+fun AppRootScreen(navController: NavHostController = rememberNavController()) {
     RestaurantNavHost(navController)
 }
 
