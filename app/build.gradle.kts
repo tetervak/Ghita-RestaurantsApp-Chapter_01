@@ -63,14 +63,9 @@ dependencies {
     implementation(libs.androidx.ui.tooling.preview)
     implementation(libs.androidx.material3)
 
-    implementation(libs.androidx.navigation.compose)
-
     // needed for the dependency injection
     implementation(libs.hilt.android)
     kapt(libs.hilt.android.compiler)
-
-    // needed for the navigation with view models
-    implementation(libs.androidx.navigation.compose)
 
     // needed for the view model per destination, the hiltViewModel() function
     implementation(libs.hilt.navigation.compose)
