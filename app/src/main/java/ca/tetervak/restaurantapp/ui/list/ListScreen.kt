@@ -72,7 +72,8 @@ fun ListBody(
     LazyColumn(
         contentPadding = PaddingValues(
             vertical = 8.dp, horizontal = 8.dp
-        ), modifier = modifier
+        ), 
+        modifier = modifier
     ) {
         items(restaurants) { restaurant ->
             RestaurantItem(item = restaurant,
@@ -84,7 +85,9 @@ fun ListBody(
 
 @Composable
 fun RestaurantItem(
-    item: Restaurant, onFavoriteClick: () -> Unit, onItemClick: () -> Unit
+    item: Restaurant, 
+    onFavoriteClick: () -> Unit, 
+    onItemClick: () -> Unit
 ) {
     Card(
         elevation = CardDefaults.cardElevation(defaultElevation = 4.dp),
@@ -102,11 +105,9 @@ fun RestaurantItem(
                 title = item.title, description = item.description, modifier = Modifier.weight(0.7f)
             )
             SelectionIcon(
-                icon = if (item.isFavorite) {
-                    Icons.Filled.Favorite
-                } else {
-                    Icons.Filled.FavoriteBorder
-                }, onClick = onFavoriteClick, modifier = Modifier.weight(0.15f)
+                icon = if (item.isFavorite) { Icons.Filled.Favorite } else { Icons.Filled.FavoriteBorder },
+                onClick = onFavoriteClick,
+                modifier = Modifier.weight(0.15f)
             )
         }
     }
@@ -114,11 +115,15 @@ fun RestaurantItem(
 
 @Composable
 private fun SelectionIcon(
-    icon: ImageVector, onClick: () -> Unit, modifier: Modifier = Modifier
+    icon: ImageVector, 
+    onClick: () -> Unit, 
+    modifier: Modifier = Modifier
 ) {
-    Image(imageVector = icon,
+    Image(
+        imageVector = icon,
         contentDescription = stringResource(R.string.selection_icon),
         modifier = modifier
             .padding(8.dp)
-            .clickable { onClick() })
+            .clickable { onClick() }
+    )
 }
