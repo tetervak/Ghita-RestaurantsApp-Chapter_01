@@ -68,7 +68,7 @@ dependencies {
     implementation(libs.androidx.hilt.common)
     implementation(libs.androidx.hilt.work)
     kapt(libs.hilt.android.compiler)
-    kapt("androidx.hilt:hilt-compiler:1.2.0")
+    kapt(libs.androidx.hilt.compiler)
 
     // needed for the view model per destination, the hiltViewModel() function
     implementation(libs.hilt.navigation.compose)
